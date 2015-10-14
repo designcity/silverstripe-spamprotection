@@ -106,6 +106,9 @@ if(class_exists('EditableFormField')) {
 
 		public function validateField($data, $form) {
 			$formField = $this->getFormField();
+			if($formField instanceof InvisibleSpamProtectorField) {
+				$formField->setValue($data[$formField->Name]);
+			}
 			if (!$formField->validate($form->getValidator())) {
 				$form->addErrorMessage($this->Name, $this->getErrorMessage()->HTML(), 'error', false);
 			}
